@@ -1,0 +1,11 @@
+<f:layout name="Default" />
+
+<f:section name="Content">
+
+<ul class="list-group">
+  <f:for each="{classNames}" as="className">
+  	<li class="list-group-item"><f:link.action action="list" arguments="{className: className}">{className}</f:link.action></li>
+  </f:for>
+</ul>
+
+</f:section>

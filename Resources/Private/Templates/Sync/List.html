@@ -1,0 +1,70 @@
+<f:layout name="Default" />
+{namespace s=Famelo\Sync\ViewHelpers}
+
+<f:section name="Content">
+
+<table class="table table-striped table-bordered">
+	<tr>
+		<th>Local</th>
+		<f:for each="{rows.0.pairs}" as="pair">
+			<th>{pair.bond}</th>
+		</f:for>
+	</tr>
+	<f:for each="{rows}" as="row">
+		<tr>
+			<th>{row.item}</th>
+			<f:for each="{row.pairs}" as="pair">
+				<td>
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search for...">
+						<span class="input-group-btn">
+							<button class="btn btn-default" data-toggle="modal" data-target="#selectRemote" data-list-uri="{s:bond.uri(action: 'getList', controller: 'Sync', arguments: {className: pair.className}, bond: pair.bond)}">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span>
+					</div>
+				</td>
+			</f:for>
+		</tr>
+	</f:for>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="selectRemote">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Remote Entities</h4>
+      </div>
+      <div class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('[data-list-uri]').click(function(){
+		var element = $(this);
+		var uri = element.attr('data-list-uri');
+		$('#selectRemote .modal-body').html('loading ...');
+		$.get(uri, function(result) {
+			// element.addClass('success');
+			// element.text('Context:' . result);
+			$('#selectRemote .modal-body').html(result);
+			$('#selectRemote .modal-body').on('click', '[data-uuid]', function(e) {
+				var uuid = $(this).attr('data-uuid');
+				console.log(uuid);
+				e.preventDefault();
+			});
+		}).fail(function() {
+			// element.addClass('danger');
+			// element.text('offline/error');
+		});
+	});
+});
+</script>
+
+</f:section>

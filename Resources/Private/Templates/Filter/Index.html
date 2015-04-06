@@ -1,0 +1,40 @@
+<f:layout name="Default" />
+
+<f:section name="Content">
+<div class="btn-toolbar">
+	<div class="dropdown pull-right">
+		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+	    	add filter
+			<span class="caret"></span>
+		</button>
+
+		<ul class="dropdown-menu" role="menu">
+		<f:for each="{classNames}" as="className">
+			<li>
+				<f:link.action action="add" arguments="{className: className}">
+					{className}
+				</f:link.action>
+			</li>
+		</f:for>
+		</ul>
+	</div>
+</div>
+
+<table class="table table-striped table-bordered">
+	<tr>
+		<th>ClassName</th>
+		<th></th>
+	</tr>
+	<f:for each="{filters}" as="filter">
+		<tr>
+			<td>{filter.className}</td>
+			<td>
+				<f:link.action action="edit" arguments="{filter: filter}" class="btn btn-info btn-xs">
+					edit
+				</f:link.action>
+			</td>
+		</tr>
+	</f:for>
+</table>
+
+</f:section>

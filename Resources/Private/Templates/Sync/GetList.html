@@ -1,0 +1,6 @@
+{namespace s=Famelo\Sync\ViewHelpers}
+<ul class="list-group">
+  <f:for each="{items}" as="item">
+  	<li class="list-group-item"><a href="#" data-uuid="{s:uuid(object: item)}">{item} {s:uuid(object: item)}</a></li>
+  </f:for>
+</ul>

@@ -1,0 +1,34 @@
+<f:layout name="Default" />
+
+<f:section name="Content">
+
+<h3>Configuration for: {filter.className}</h3>
+
+<f:form action="save">
+	<table class="table table-striped table-bordered">
+		<f:form.hidden name="filter" value="{filter}" />
+		<tr>
+			<th>Property</th>
+			<th>Type</th>
+			<th></th>
+		</tr>
+		<f:for each="{properties}" as="property">
+			<tr>
+				<td>{property.name}</td>
+				<td>{property.type}</td>
+				<td>
+					<label>
+						<input type="checkbox" name="properties[{property.name}][exclude]" value="1" {f:if(condition: property.exclude, then: 'checked="checked"')}>
+						Exclude from Sync
+					</label>
+				</td>
+			</tr>
+		</f:for>
+	</table>
+
+	<button type="submit" class="btn btn-primary pull-right">
+		save
+	</button>
+</f:form>
+
+</f:section>
